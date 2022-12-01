@@ -43,9 +43,6 @@ class Adherent
     #[ORM\Column(length: 255)]
     private ?string $motPasse = null;
 
-    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'adherents')]
-    private Collection $categorie;
-
     #[ORM\OneToMany(mappedBy: 'adherents', targetEntity: CategorieAdherent::class)]
     private Collection $categorieAdherents;
 
@@ -164,30 +161,6 @@ class Adherent
     public function setMotPasse(string $motPasse): self
     {
         $this->motPasse = $motPasse;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Categorie>
-     */
-    public function getCategorie(): Collection
-    {
-        return $this->categorie;
-    }
-
-    public function addCategorie(Categorie $categorie): self
-    {
-        if (!$this->categorie->contains($categorie)) {
-            $this->categorie->add($categorie);
-        }
-
-        return $this;
-    }
-
-    public function removeCategorie(Categorie $categorie): self
-    {
-        $this->categorie->removeElement($categorie);
 
         return $this;
     }
